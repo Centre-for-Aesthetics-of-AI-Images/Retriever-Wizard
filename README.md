@@ -1,11 +1,11 @@
 # 🧙‍♂️ Retriever Wizard
 
-Retriever Wizard is a small web app (Streamlit) for exploring a collection of images by *visual similarity*. This tool was built as part of an ongoing PhD project (IKK, Aarhus University).
+Retriever Wizard is a small web app (Streamlit) for exploring a collection of images by *visual similarity*, based on one image. This tool was built as part of an ongoing PhD project (IKK, Aarhus University).
 
 You can use it to:
 - Pick a “query” image and find other images based on computational similarity
 - Browse results in a reading-friendly list (stacked view)
-- Add your own scholarly categories/notes as an overlay (without changing your original metadata)
+- Add your own categories/labels as an overlay (without changing your original metadata)
 - Make a simple 2D “map” of the collection for exploratory browsing or communication
 
 ## Glossary
@@ -15,7 +15,7 @@ You can use it to:
 - **Overlay / annotation**: your added categories/labels saved separately, so your source data remains untouched.
 
 ## Included example dataset
-This repo ships an `examples/` test set (1k images) from a larger collection of educational wall charts.
+This repo includes an `examples/` test set (1k images) from a larger collection of educational wall charts.
 - Ownership: Danish School of Education (DPU), Aarhus University.
 - Source: Digitized by The Royal Danish Library; the selected example images are free of copyright (source hyperlink included in `examples/metadata.csv`).
 - Research context: Processed during an ongoing PhD project; embeddings produced with `google/siglip2-giant-opt-patch16-384`.
@@ -37,8 +37,8 @@ Retriever Wizard needs three things:
 - If your metadata uses a different column name (like `path` or `full_path`), the app will try to derive filenames automatically.
 - Filenames should be unique (the app matches by basename, case-insensitive).
 
-## Install (Windows / PowerShell)
-```powershell
+## Install (Windows)
+```
 git clone https://github.com/Centre-for-Aesthetics-of-AI-Images/Retriever-Wizard.git
 cd retriever-wizard
 
@@ -50,7 +50,7 @@ pip install -r requirements.txt
 ```
 
 ## Run
-```powershell
+```
 streamlit run ReWiz.py
 ```
 
@@ -61,14 +61,11 @@ streamlit run ReWiz.py
 - **Step 8**: add annotation fields (your categories) and apply them as an overlay.
 - **Step 9**: allows a visual projection of the distance between the query image and other images.
 
-If you’re using known data, you can skip setup checks by clicking **Auto-validate Steps 1–5 and go to Step 6**.
+If you’re using  known and already verified data, you can skip setup checks by clicking **Auto-validate Steps 1–5 and go to Step 6** (2-clicks needed).
 
 ## Notes
 - The app stores a small settings checkpoint in `.retriever_wizard/settings.json` (next to `ReWiz.py`).
-- Annotation overlays are written under your chosen `output_dir` in an `_overlay/` folder and never overwrite your input CSVs.
-
-## Known gaps
-- Navigation between steps can be smoother.
+- Annotation overlays are written under your chosen `output_dir` in an `_overlay/` folder and never overwrite your input CSVs, but can later be used as potential metadata.
 
 ### Disclaimer
 Parts of this project were drafted or refactored with the assistance of large language models.
