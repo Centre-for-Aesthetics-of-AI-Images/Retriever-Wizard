@@ -2,6 +2,7 @@ streamlit
 pandas
 numpy
 plotly
+altair
 faiss-cpu
 umap-learn
 scikit-learn

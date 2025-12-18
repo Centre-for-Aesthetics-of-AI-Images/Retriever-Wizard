@@ -1,61 +1,74 @@
-# 🧙‍♂️ Retriever Wizard [WIP]
-A small Streamlit app built for my PhD project (In a collaboration between Aarhus University and Museum Give) to make crosscollection-comparisons, via visual similarity using precomputed embeddings and metadata.
-The primary use is an adaptive research tool, created for my analytical process. It reflects how I use my data and my research workflow. You’re welcome to study or adapt it, but expect revisions and tweaks.
+# 🧙‍♂️ Retriever Wizard
 
-## Overview
-Retriever Wizard loads a metadata CSV and an embeddings CSV (CLIP/SigLIP/Vision Transformer-style). It builds a fast FAISS index for nearest-neighbour search, lets you rank and annotate results, and makes simple 2D projections for communication.
+Retriever Wizard is a small web app (Streamlit) for exploring a collection of images by *visual similarity*. This tool was built as part of an ongoing PhD project (IKK, Aarhus University).
 
-What it helps with:
-- Find visually similar charts (nearest neighbours)
-- Inspecting similar images between different collections.
-- Annotate image-candidates for cross-examination
-- Make simple 2D projections (UMAP/t-SNE) for slides/reports
+You can use it to:
+- Pick a “query” image and find other images based on computational similarity
+- Browse results in a reading-friendly list (stacked view)
+- Add your own scholarly categories/notes as an overlay (without changing your original metadata)
+- Make a simple 2D “map” of the collection for exploratory browsing or communication
 
-## Test set 
-The included Examples folder contains a test set (1k images) from a larger collection of educational wall charts.
-- Original collection ownership: Danish School of Education (DPU), Aarhus University.
-- Image source: Digitized by The Royal Danish Library; the selected example images are free of copyright, and a link to the original upload of the image is available in the metadata.csv.
-- Research context: Processed during my ongoing PhD project. Embeddings were produced with google/siglip2-giant-opt-patch16-384.
+## Glossary
+- **Metadata**: your spreadsheet about the images (title, date, author, reference, etc.).
+- **Embeddings**: a table of numbers (one row per image) produced by a vision model; it lets the tool compare images by visual similarity.
+- **Nearest neighbors**: the most visually similar images to your chosen query image.
+- **Overlay / annotation**: your added categories/labels saved separately, so your source data remains untouched.
 
-## Features
-- Metadata validation: checks for a `filename` column (auto-derives from alternatives if possible)
-- Embeddings integration: loads premade CLIP/SigLIP/Vision Transformer style CSVs
-- File index: builds or loads a CSV map `filename → full_path`
-- FAISS search: Cosine (standard) or Euclidean 
-- Stacked view: ranked vertical preview with similarity scores and labels.
-- Annotation function with csv output
-- Projection: UMAP/t-SNE with coloring by (query/nearest/other) or cosine gradient
-- Filters: include/exclude per column
-- Image display
-- Checkpointing: save/load app state
+## Included example dataset
+This repo ships an `examples/` test set (1k images) from a larger collection of educational wall charts.
+- Ownership: Danish School of Education (DPU), Aarhus University.
+- Source: Digitized by The Royal Danish Library; the selected example images are free of copyright (source hyperlink included in `examples/metadata.csv`).
+- Research context: Processed during an ongoing PhD project; embeddings produced with `google/siglip2-giant-opt-patch16-384`.
 
-## Missing Features
-- Easier navigation between different steps
-- Maybe merging step 1-5; removing the redundant checks in the validation of premade data.
-  
+`ReWiz.py` defaults to using:
+- `examples/metadata.csv`
+- `examples/embeddings.csv`
+- `examples/images/`
 
-## Trying it out
-The ReWiz.py is naturally set up to run the testset in the Examples folder, try out the testset or change embeddings, metadata and images to your own. 
-**Important notes**: The column: *filename* is central to the code and is what FAISS indexes the images after, and is the link between metadata, images and embeddings. All image-filenames must be different, and you can't use the same named columns. 
+## What you need to use your own collection
+Retriever Wizard needs three things:
+1) A folder of image files
+2) A metadata spreadsheet saved as CSV (your descriptive fields)
+3) An embeddings CSV (the “visual features” numbers, one row per image)
 
-## Installation (Windows)
-```bash
-git clone https://github.com/ClarkRT19/retriever-wizard.git
+## How your files should match
+- The tool connects everything through **filenames**.
+- In practice, this means your metadata CSV and embeddings CSV need a column called `filename`.
+- If your metadata uses a different column name (like `path` or `full_path`), the app will try to derive filenames automatically.
+- Filenames should be unique (the app matches by basename, case-insensitive).
+
+## Install (Windows / PowerShell)
+```powershell
+git clone <YOUR_REPO_URL>
 cd retriever-wizard
 
 py -3.12 -m venv .venv
-.venv\Scripts\activate
+Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass
+\.\.venv\Scripts\Activate.ps1
 
 pip install -r requirements.txt
-# If needed:
-pip install faiss-cpu umap-learn scikit-learn plotly imageio pillow opencv-python
 ```
 
-## Running Retriever Wizard:
-```bash
+## Run
+```powershell
 streamlit run ReWiz.py
 ```
 
+## Using the app
+- **Step 1–3**: point the app at your metadata CSV, embeddings CSV, and image folder(s).
+- **Step 4–5**: run a consistency check and build/load a file index (so thumbnails load quickly).
+- **Step 6**: choose a query image, optionally filter by metadata, and find similar images.
+- **Step 8**: add annotation fields (your categories) and apply them as an overlay.
+- **Step 9**: allows a visual projection of the distance between the query image and other images.
+
+If you’re using known data, you can skip setup checks by clicking **Auto-validate Steps 1–5 and go to Step 6**.
+
+## Notes
+- The app stores a small settings checkpoint in `.retriever_wizard/settings.json` (next to `ReWiz.py`).
+- Annotation overlays are written under your chosen `output_dir` in an `_overlay/` folder and never overwrite your input CSVs.
+
+## Known gaps
+- Navigation between steps can be smoother.
+
 ### Disclaimer
-Parts of the code in this project were drafted or refactored with the assistance of large language models (ChatGPT/GPT-5). 
-All prompts/outputs were reviewed and validated by the maintainer.
+Parts of this project were drafted or refactored with the assistance of large language models.

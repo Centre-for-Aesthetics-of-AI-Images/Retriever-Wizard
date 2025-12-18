@@ -1,0 +1,44 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtualenv
+.venv/
+venv/
+ENV/
+
+# Environment files
+.env
+.env.*
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Streamlit
+.streamlit/secrets.toml
+
+# App outputs / caches
+.retriever_wizard/
+examples/_index/
+custom annotations/
+_overlay/
+*.faiss
+*.index
+*.npy
+*.npz
+*.pkl
+*.pickle
+
+# Local notebooks / scratch
+.ipynb_checkpoints/
+
+# Optional docs (kept local)
+Docs/PublicRelease.md
+
+# Example data
+# NOTE: this repo intentionally ships `examples/images/` (the included 1k-image test set).
+# If you do not want to ship the embeddings/metadata CSVs, uncomment the lines below.
+# examples/embeddings.csv
+# examples/metadata.csv
