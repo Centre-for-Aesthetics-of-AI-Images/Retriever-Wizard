@@ -3,10 +3,10 @@
 Retriever Wizard is a small web app (Streamlit) for exploring a collection of images by *visual similarity*. This tool was built as part of an ongoing PhD project (IKK, Aarhus University).
 
 You can use it to:
-- Pick a “query” image and find other images based on computational similarity
+- Pick a “query” image and find other images based on computational similarity (or crop out a part of an image or try searching by text-prompt in the collection)
 - Browse results in a reading-friendly list (stacked view)
-- Add your own scholarly categories/notes as an overlay (without changing your original metadata)
-- Make a simple 2D “map” of the collection for exploratory browsing or communication
+- Add your own categories/notes/annotations as an overlay (without changing your original metadata!)
+- Make a simple 2D “map” of the collection for exploratory browsing or showcase the distance of the query-image in relation to the rest of the images
 
 ## Glossary
 - **Metadata**: your spreadsheet about the images (title, date, author, reference, etc.).
@@ -25,6 +25,14 @@ This repo ships an `examples/` test set (images + metadata + embeddings) from a 
 - `examples/embeddings.csv`
 - `examples/images/`
 
+## Changing default paths (without UI)
+Edit [rewiz_default_paths.json](rewiz_default_paths.json) to change the default:
+- `meta_path`
+- `embed_path`
+- `images_root`
+- `output_dir`
+
+Relative paths are resolved relative to the repo folder.
 ## What you need to use your own collection
 Retriever Wizard needs three things:
 1) A folder of image files
@@ -34,7 +42,7 @@ Retriever Wizard needs three things:
 ## How your files should match
 - The tool connects everything through **filenames**.
 - In practice, this means your metadata CSV and embeddings CSV need a column called `filename`.
-- If your metadata uses a different column name (like `path` or `full_path`), the app will try to derive filenames automatically.
+- If your metadata uses a different column name (like `path` or `full_path`), the app will *try* to derive filenames automatically.
 - Filenames should be unique (the app matches by basename, case-insensitive).
 
 ## Install (Windows / PowerShell)
@@ -58,15 +66,6 @@ Windows convenience:
 	# or
 	powershell -ExecutionPolicy Bypass -File .\start_rewiz.ps1
 ```
-
-## Changing default paths (without UI)
-Edit [rewiz_default_paths.json](rewiz_default_paths.json) to change the default:
-- `meta_path`
-- `embed_path`
-- `images_root`
-- `output_dir`
-
-Relative paths are resolved relative to the repo folder.
 
 ## Using the app
 - **Step 1–3**: point the app at your metadata CSV, embeddings CSV, and image folder(s).
@@ -106,11 +105,8 @@ Export styles:
 - **Wide / one-hot**: multi-choice fields become multiple 0/1 columns.
 - **Binary**: exports presence/absence columns for selected category values.
 
-## Repo hygiene
-- Cropped query images are stored under `_crops/` for convenience during a session and are ignored by git via `.gitignore`.
-
-## Known gaps
-- Navigation between steps can be smoother.
+## Cropped Images
+- Cropped query images are stored under `_crops/` for later use
 
 ### Disclaimer
 Parts of this project were drafted or refactored with the assistance of large language models.
