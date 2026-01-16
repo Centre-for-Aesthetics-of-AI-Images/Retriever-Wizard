@@ -89,7 +89,7 @@ Retriever Wizard supports several query types:
 - **Crop (light)**: uses SigLIP2 to embed only a cropped region as the query.
 - **Crop (patch index)**: searches a patch-level index (optional, heavier setup).
 
-Step 7 shows the “query” at the top based on your last search:
+## Step 7 shows the “query” at the top based on your last search:
 - Text shows the prompts used.
 - Crop shows the crop preview.
 - Whole-image shows the query image.
@@ -105,11 +105,6 @@ Export styles:
 - **Smart columns (recommended)**: exports a single column for single-choice fields; multi-choice fields export as a list-like string.
 - **Wide / one-hot**: multi-choice fields become multiple 0/1 columns.
 - **Binary**: exports presence/absence columns for selected category values.
-
-## Troubleshooting
-- **FAISS AVX512 vs AVX2 on Windows**: It’s normal to see FAISS try AVX512 and fall back to AVX2. As long as it ends with “Successfully loaded faiss with AVX2 support”, you’re fine.
-- **Text / Crop (light) search dependencies**: These modes use Hugging Face Transformers. If you see warnings about missing tokenizers or “fast processor” requirements, ensure `torch`, `torchvision`, and `sentencepiece` are installed (they are included in `requirements.txt`).
-- **Offline / restricted networks**: If model downloads time out, run once on a network that can download the SigLIP2 weights, or set `REWIZ_HF_LOCAL_ONLY=1` to force cache-only mode.
 
 ## Repo hygiene
 - Cropped query images are stored under `_crops/` for convenience during a session and are ignored by git via `.gitignore`.
