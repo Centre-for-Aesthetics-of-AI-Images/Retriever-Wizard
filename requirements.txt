@@ -1,4 +1,5 @@
 streamlit
+streamlit-cropperjs
 pandas
 numpy
 plotly
@@ -9,3 +10,7 @@ scikit-learn
 imageio
 pillow
 opencv-python
+transformers
+torch
+torchvision
+sentencepiece
