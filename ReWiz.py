@@ -2330,7 +2330,7 @@ def _save_faiss_cache(
 
         manifest = {
             "schema_version": 1,
-            "created_at": datetime.utcnow().isoformat() + "Z",
+            "created_at": datetime.now(timezone.utc).isoformat().replace("+00:00", "Z"),
             "embed_path": str(emb_p_res),
             "embed_size": emb_size,
             "embed_mtime": emb_mtime,

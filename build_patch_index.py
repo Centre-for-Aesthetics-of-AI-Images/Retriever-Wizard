@@ -20,7 +20,7 @@ import argparse
 import hashlib
 import json
 import os
-from datetime import datetime
+from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any, Iterable, List, Sequence, Tuple
 
@@ -213,7 +213,7 @@ def main() -> int:
     model_id = os.environ.get("REWIZ_SIGLIP2_MODEL", "google/siglip2-giant-opt-patch16-384").strip() or "google/siglip2-giant-opt-patch16-384"
     manifest = {
         "schema_version": 1,
-        "created_at": datetime.utcnow().isoformat() + "Z",
+        "created_at": datetime.now(timezone.utc).isoformat().replace("+00:00", "Z"),
         "model_id": model_id,
         "dim": int(dim),
         "scales": scales,
