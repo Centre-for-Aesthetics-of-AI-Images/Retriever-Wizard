@@ -24,6 +24,7 @@ Thumbs.db
 examples/_index/
 custom annotations/
 _overlay/
+_crops/
 *.faiss
 *.index
 *.npy
@@ -34,11 +35,17 @@ _overlay/
 # Local notebooks / scratch
 .ipynb_checkpoints/
 
+# Dev-only tooling
+tools/static_audit.py
+
 # Optional docs (kept local)
 Docs/PublicRelease.md
 
 # Example data
-# NOTE: this repo intentionally ships `examples/images/` (the included 1k-image test set).
-# If you do not want to ship the embeddings/metadata CSVs, uncomment the lines below.
+# NOTE: keep local image datasets out of git.
+# The upstream repo already contains `examples/images/`; do not ignore it here.
+images/
+
+# If you also do not want to ship the embeddings/metadata CSVs, uncomment the lines below.
 # examples/embeddings.csv
 # examples/metadata.csv
