@@ -47,7 +47,7 @@ Retriever Wizard needs three things:
 
 ## Install (Windows / PowerShell)
 ```powershell
-git clone <YOUR_REPO_URL>
+git clone https://github.com/Centre-for-Aesthetics-of-AI-Images/Retriever-Wizard
 cd retriever-wizard
 
 py -3.12 -m venv .venv
