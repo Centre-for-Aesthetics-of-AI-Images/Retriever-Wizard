@@ -16,7 +16,7 @@ You can use it to:
 
 ## Included example dataset
 This repo ships an `examples/` test set (images + metadata + embeddings) from a larger collection of educational wall charts.
-- Ownership: Danish School of Education (DPU), Aarhus University.
+- Ownership: Danish School of Education (DPU), Aarhus University. 
 - Source: Digitized by The Royal Danish Library; source hyperlinks live in `examples/metadata.csv`.
 - Research context: Embeddings produced with `google/siglip2-giant-opt-patch16-384`.
 
@@ -34,10 +34,11 @@ Edit [rewiz_default_paths.json](rewiz_default_paths.json) to change the default:
 
 Relative paths are resolved relative to the repo folder.
 ## What you need to use your own collection
-Retriever Wizard needs three things:
+Retriever Wizard needs four things:
 1) A folder of image files
 2) A metadata spreadsheet saved as CSV (your descriptive fields)
 3) An embeddings CSV (the “visual features” numbers, one row per image)
+4) If wanting to use the supplied encoder(for the text-embedder and cropping feature): around 10GB for siglip2-giant-opt-patch16-384
 
 ## How your files should match
 - The tool connects everything through **filenames**.
